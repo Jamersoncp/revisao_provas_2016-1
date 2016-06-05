@@ -1,12 +1,14 @@
-
 package br.edu.grupointegrado.controle;
+
+import br.edu.grupointegrado.conexao.ConexaoOracle;
+import java.sql.SQLException;
 
 /**
  *
  * @author Jamerson
  */
 public class Itens {
-    
+
     private int cdItem;
     private String dsItem;
     private double vlItem;
@@ -43,7 +45,5 @@ public class Itens {
     public void setQtEstoque(int qtEstoque) {
         this.qtEstoque = qtEstoque;
     }
-    
-    
-    
+
 }

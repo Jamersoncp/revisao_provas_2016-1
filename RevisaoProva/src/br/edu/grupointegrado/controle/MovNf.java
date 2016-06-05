@@ -43,16 +43,13 @@ public class MovNf extends ConexaoOracle{
       public void excluirOs() {
 
         sql.delete(0, sql.length());
+        sql.append("DELETE FROM MOV_NF_ITEM WHERE CD_NF = ").append(getCdNf());
+        super.deleteSQL(sql.toString());
+
+        sql.delete(0, sql.length());
         sql.append("DELETE FROM MOV_NF WHERE CD_NF = ").append(getCdNf());
         super.deleteSQL(sql.toString());
 
-//        sql.delete(0, sql.length());
-//        sql.append("DELETE FROM MOV_OS_SERVICO WHERE CD_OS = ").append(getCdNf());
-//        super.deleteSQL(sql.toString());
-//
-//        sql.delete(0, sql.length());
-//        sql.append("DELETE FROM CAD_OS WHERE CD_OS = ").append(getCdNf());
-//        System.out.println(sql.toString());
         super.deleteSQL(sql.toString());
     }
 

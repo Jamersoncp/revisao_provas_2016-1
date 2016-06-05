@@ -1,6 +1,7 @@
 package br.edu.grupointegrado.visao;
 
 import br.edu.grupointegrado.controle.MovNf;
+import br.edu.grupointegrado.controle.MovNfItens;
 import br.edu.grupointegrado.ferramentas.LimparCampos;
 import br.edu.grupointegrado.ferramentas.RetornaDescricao;
 import br.edu.grupointegrado.ferramentas.*;
@@ -23,6 +24,8 @@ public class Movimentacao extends javax.swing.JFrame {
     //ValidaInteiro valida = new ValidaInteiro(); Usar com campos formatado
 
     MovNf movNf = new MovNf();
+    MovNfItens movNfItens = new MovNfItens();
+     
 
     Date data = new Date();
     SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/YYYY");
@@ -176,7 +179,10 @@ public class Movimentacao extends javax.swing.JFrame {
 
         jTbItensNf.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
                 "Sel", "Codigo Item", "Descrição", "Valor", "Quantidade", "Total"
@@ -186,7 +192,7 @@ public class Movimentacao extends javax.swing.JFrame {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, true, false
+                true, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -198,6 +204,14 @@ public class Movimentacao extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTbItensNf);
+        if (jTbItensNf.getColumnModel().getColumnCount() > 0) {
+            jTbItensNf.getColumnModel().getColumn(0).setResizable(false);
+            jTbItensNf.getColumnModel().getColumn(1).setResizable(false);
+            jTbItensNf.getColumnModel().getColumn(2).setResizable(false);
+            jTbItensNf.getColumnModel().getColumn(3).setResizable(false);
+            jTbItensNf.getColumnModel().getColumn(4).setResizable(false);
+            jTbItensNf.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -352,7 +366,7 @@ public class Movimentacao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTBNovoActionPerformed
 
     private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
-        inclui_servicos();
+        inclui_itens();
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
     private void jTBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBGravarActionPerformed
@@ -367,9 +381,9 @@ public class Movimentacao extends javax.swing.JFrame {
         movNf.getFormapagamento().setCdForma(Integer.parseInt(jTFCodigoForma.getText()));
 
         movNf.incluirMovNf();
-//        jTFCodigoOS.setText(Integer.toString(os.getCdOs()));
-//        gravaServico();
-//        gravaServicoProduto();
+        
+        jTFCodigoNf.setText(Integer.toString(movNf.getCdNf()));
+        gravaItenNF();
         movNf.commit();
     }//GEN-LAST:event_jTBGravarActionPerformed
 
@@ -445,7 +459,7 @@ public class Movimentacao extends javax.swing.JFrame {
     private javax.swing.JTextField jTFValorItem;
     private javax.swing.JTable jTbItensNf;
     // End of variables declaration//GEN-END:variables
-public void inclui_servicos() {// copiar de outro projeto este nao funciona bem
+public void inclui_itens() {// copiar de outro projeto este nao funciona bem
         DefaultTableModel TabelaItens = (DefaultTableModel) jTbItensNf.getModel();
         double soma = 0;
         int totlinha = jTbItensNf.getRowCount();
@@ -454,8 +468,8 @@ public void inclui_servicos() {// copiar de outro projeto este nao funciona bem
         int index = 0;
 
         for (int i = 1; i <= totlinha; i++) {
-            String cd_servico = (String) jTbItensNf.getValueAt(conta, 1);
-            if (jTFCodigoItem.getText().equals(cd_servico)) {
+            String cd_item = (String) jTbItensNf.getValueAt(conta, 1);
+            if (jTFCodigoItem.getText().equals(cd_item)) {
                 int opcao_escolhida
                         = JOptionPane.showConfirmDialog(null, "Serviço já cadastrado,"
                                 + " deseja"
@@ -525,4 +539,21 @@ public void inclui_servicos() {// copiar de outro projeto este nao funciona bem
         }
     }
 
+    public void gravaItenNF() {
+        int cont = jTbItensNf.getRowCount();
+        for (int i = 0; i < cont; i++) {
+            String item = (String) jTbItensNf.getValueAt(i, 1);
+            String valor = (String) jTbItensNf.getValueAt(i, 3);
+            String quantida = (String) jTbItensNf.getValueAt(i, 4);
+
+            movNfItens.getIten().setCdItem(Integer.parseInt(item));
+            movNfItens.getPessoa().setCdPessoa(Integer.parseInt(jTFSerieNf.getText()));
+            movNfItens.getMovnf().setCdNf(Integer.parseInt(jTFCodigoNf.getText()));
+            movNfItens.getMovnf().setSrNF(jTFSerieNf.getText());
+            movNfItens.setVlItem(Double.parseDouble(valor));
+            movNfItens.setQtItem(Integer.parseInt(quantida));
+            
+            movNfItens.incluirItensNf();
+        }
+    }
 }
