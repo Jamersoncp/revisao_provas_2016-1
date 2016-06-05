@@ -179,10 +179,7 @@ public class Movimentacao extends javax.swing.JFrame {
 
         jTbItensNf.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Sel", "Codigo Item", "Descrição", "Valor", "Quantidade", "Total"
