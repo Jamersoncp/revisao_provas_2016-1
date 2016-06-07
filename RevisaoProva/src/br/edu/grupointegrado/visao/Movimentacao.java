@@ -489,26 +489,26 @@ public void inclui_itens() {// copiar de outro projeto este nao funciona bem
             TabelaItens.setValueAt(jTFDescricaoItem.getText(), x, 2);
             TabelaItens.setValueAt(jTFValorItem.getText(), x, 3);
             TabelaItens.setValueAt(jTFQuantidadeItem.getText(), x, 4);
-            soma = Double.parseDouble(jTFQuantidadeItem.getText().replaceAll(",", "."))
+            soma = Double.parseDouble(jTFQuantidadeItem.getText().replaceAll(",","."))
                     * Double.parseDouble(jTFValorItem.getText());
             TabelaItens.setValueAt(soma, x, 5);
 
-            jTFCodigoItem.setText(" ");
-            jTFDescricaoItem.setText(" ");
-            jTFValorItem.setText(" ");
-            jTFQuantidadeItem.setText(" ");
+            jTFCodigoItem.setText("");
+            jTFDescricaoItem.setText("");
+            jTFValorItem.setText("");
+            jTFQuantidadeItem.setText("");
 
         } else if (situacao == 1) { // alteração
 
-            TabelaItens.setValueAt(jTFQuantidadeItem.getText(), index, 4);
+            TabelaItens.setValueAt(jTFQuantidadeItem.getText(), index,4);
 
             soma = Double.parseDouble(jTFQuantidadeItem.getText().replaceAll(",", "."))
                     * Double.parseDouble(jTFValorItem.getText());
             TabelaItens.setValueAt(soma, index, 5);
-            jTFCodigoItem.setText(" ");
-            jTFDescricaoItem.setText(" ");
-            jTFValorItem.setText(" ");
-            jTFQuantidadeItem.setText(" ");
+            jTFCodigoItem.setText("");
+            jTFDescricaoItem.setText("");
+            jTFValorItem.setText("");
+            jTFQuantidadeItem.setText("");
         }
     }
 
@@ -523,7 +523,7 @@ public void inclui_itens() {// copiar de outro projeto este nao funciona bem
                 JOptionPane.YES_NO_CANCEL_OPTION);
         if (opcao == JOptionPane.YES_OPTION) {
             for (i = totlinha - 1; i >= 0; i--) {
-                Boolean selecionado = (Boolean) tabelaparametro.getValueAt(i, 0);
+                Boolean selecionado = (Boolean) tabelaparametro.getValueAt(i,0);
                 if (selecionado == true) {
                     sel = true;
 
@@ -538,10 +538,11 @@ public void inclui_itens() {// copiar de outro projeto este nao funciona bem
 
     public void gravaItenNF() {
         int cont = jTbItensNf.getRowCount();
+       
         for (int i = 0; i < cont; i++) {
-            String item = (String) jTbItensNf.getValueAt(i, 1);
-            String valor = (String) jTbItensNf.getValueAt(i, 3);
-            String quantida = (String) jTbItensNf.getValueAt(i, 4);
+            String item = (String) jTbItensNf.getValueAt(i,1);
+            String valor = (String) jTbItensNf.getValueAt(i,3);
+            String quantida = (String) jTbItensNf.getValueAt(i,4);
 
             movNfItens.getIten().setCdItem(Integer.parseInt(item));
             movNfItens.getPessoa().setCdPessoa(Integer.parseInt(jTFSerieNf.getText()));
